@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router'
-
+import ShelfItem from '../ShelfItem/ShelfItem.jsx';
 
 function ShelfPage() {
   useEffect(()=>{
@@ -27,8 +27,8 @@ return (
           shelf.map(item=>{
             return(
               <>
-            <li>{item.description}</li>
-            <img src={item.image_url}/>
+           
+            <ShelfItem item={item}/>
               </>
             )
           })

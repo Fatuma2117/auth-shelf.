@@ -26,9 +26,19 @@ function* createItem(action){
     yield put({type: 'FETCH_SHELF' })
 }
 
+function* deleteItem(x){
+    const response = yield axios({
+        method: 'DELETE',
+        url: `/api/shelf/${x.payload}`,
+    });
+    yield put({type:'FETCH_SHELF'})
+}
+
 function* shelfSaga(){
     yield takeEvery('FETCH_SHELF', fetchShelf)
     yield takeEvery('CREATE_ITEM', createItem)
+    yield takeEvery('DELETE_ITEM', deleteItem)
 }
+
 
 export default shelfSaga;

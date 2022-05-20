@@ -51,7 +51,17 @@ router.get('/', (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
-  // endpoint functionality
+
+  console.log(req)
+  const queryText = `DELETE FROM item 
+	WHERE id=$1 
+		AND user_id =$2;`;
+  pool.query(queryText, [req.params.id, req.user.id])
+    .then(() => { res.sendStatus(200); })
+    .catch((err) => {
+      console.log('Error completing SELECT plant query', err);
+      res.sendStatus(500);
+    });
 });
 
 /**
