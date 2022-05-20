@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   let query = `SELECT * from "item";`
   pool.query(query)
     .then((response)=>{
-      console.log(response)
+      console.log(response.rows)
       res.send(response.rows)
     })
     .catch((dbError)=>{

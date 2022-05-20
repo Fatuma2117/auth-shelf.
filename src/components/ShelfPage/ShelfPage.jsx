@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useHistory} from 'react-router'
 
 
 function ShelfPage() {
@@ -8,6 +9,7 @@ function ShelfPage() {
   },[])
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const shelf = useSelector(store=> store.shelf)
 
   const getFunc = ()=> {
@@ -33,7 +35,8 @@ return (
         }
       </ul>
       <p>All of the available items can be seen here.</p>
-    </div>
+      <button onClick={() => {history.push('/form')}}>Add new item</button>   
+       </div>
   );
 }
 

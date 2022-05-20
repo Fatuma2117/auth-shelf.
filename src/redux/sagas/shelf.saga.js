@@ -1,7 +1,7 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-function * fetchShelf(){
+function* fetchShelf(){
     try {
        
         const response = yield axios.get('api/shelf/');
@@ -17,8 +17,18 @@ function * fetchShelf(){
     }
 }
 
+function* createItem(action){
+    const response = yield axios({
+        method: 'POST',
+        url: '/api/shelf',
+        data: action.payload
+    })
+    yield put({type: 'FETCH_SHELF' })
+}
+
 function* shelfSaga(){
-    yield takeLatest('FETCH_SHELF', fetchShelf)
+    yield takeEvery('FETCH_SHELF', fetchShelf)
+    yield takeEvery('CREATE_ITEM', createItem)
 }
 
 export default shelfSaga;
