@@ -15,10 +15,11 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import ShelfPage from '../ShelfPage/ShelfPage';
+import ShelfPage from '../ShelfPage/ShelfPage.jsx';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ShelfForm from '../ShelfForm/ShelfForm';
 
 import './App.css';
 
@@ -66,8 +67,13 @@ function App() {
             path="/shelf"
           >
             <ShelfPage />
+          </ProtectedRoute >
+           
+          <ProtectedRoute exact path="/form">
+            <ShelfForm />
           </ProtectedRoute>
-
+            
+        
           <Route
             exact
             path="/login"

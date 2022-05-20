@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   let query = `SELECT * from "item";`
   pool.query(query)
     .then((response)=>{
-      console.log(response)
+      console.log(response.rows)
       res.send(response.rows)
     })
     .catch((dbError)=>{
@@ -21,9 +21,31 @@ router.get('/', (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
-  // endpoint functionality
-});
+ router.post('/', (req, res) => {
+  if (req.isAuthenticated()) {
+    const sqlQuery = `INSERT INTO "item"
+    ("description", "image_url", "user_id")
+    VALUES
+    ($1, $2,$3);`
+    
+    
+    const sqlValues = [
+      req.body.description,
+      req.body.image_url,
+      req.user.id
+    ]
+    pool.query(sqlQuery, sqlValues)
+      .then((dbRes) => {
+        res.sendStatus(201)
+      })
+      .catch((dbErr) => {
+        res.sendStatus(500)
+      })
+  } else {
+    res.sendStatus(401)
+  }
+})
+
 
 /**
  * Delete an item if it's something the logged in user added
